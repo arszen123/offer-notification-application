@@ -1,0 +1,14 @@
+{
+  "name": "offer-notification-application",
+  "version": "1.0.0",
+  "description": "Offer Notification Application",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "cheerio": "^1.0.0-rc.10"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1073.0"
+  }
+}
