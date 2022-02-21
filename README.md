@@ -8,8 +8,8 @@ A simple application built on AWS with Serverless, which crawls a website for of
 
 ### Used AWS Services
 
-- EventBridge - For scheduling Lambda invokation
-- Lambda - For cloud computing
+- EventBridge - For scheduling Lambda function invocation
+- Lambda - For crawling the website and publishing to SNS
 - SNS - For sending email notifications
 
 ## Used technologies
