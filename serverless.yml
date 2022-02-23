@@ -2,6 +2,7 @@ service: offer-notification-application
 
 frameworkVersion: '2 || 3'
 
+# Set to true, to load environment variables from the .env files
 useDotenv: true
 
 provider:
@@ -12,6 +13,9 @@ provider:
   iam:
     role:
       statements:
+      # In this example the lambda function publishes to the OfferTopic SNS topic
+      # therefore it needs to have sns:Publish permission to that topic
+      # With Ref OfferTopic we are referencing the OfferTopic resource name (ARN - Amazon Resource Name)
         - Effect: Allow
           Action: 'sns:Publish'
           Resource:
@@ -19,25 +23,29 @@ provider:
 
 # The list of the lambda functions
 functions:
-# The lambda function that crawls the target website and publishes a notification
+# The lambda function that crawls the target website and publishes the messages
   crawl:
+  # Path to the handler function
     handler: src/handler.run
     environment:
-    # The OfferTopic ARN where the notification will be published
+    # The OfferTopic ARN where the messages will be published
       OFFER_TOPIC_ARN: !Ref OfferTopic
+
+    # The events which trigger the lambda function
     events:
-    # The event which will trigger the lambda function
+    # A scheduled event to trigger the lambda function daily
       - schedule: rate(1 day)
 
-# AWS resources which needs to be provisioned
+# AWS resources that need to be created
 resources:
   Resources:
-  # The SNS topic where the notifications about the offers will be published
+  # The SNS topic where the messages about the offers will be published
     OfferTopic:
       Type: AWS::SNS::Topic
       Properties:
         TopicName: offer-topic
         Subscription:
-        # Subscribe to this topic with an email address
+        # Subscribing to this topic, with an email address
+        # ${env:EMAIL} is referencing to the EMAIL environment variable
           - Endpoint: ${env:EMAIL}
             Protocol: email

@@ -8,9 +8,9 @@ A simple application built on AWS with Serverless, which crawls a website for of
 
 ### Used AWS Services
 
-- EventBridge - For scheduling Lambda function invocation
-- Lambda - For crawling the website and publishing to SNS
-- SNS - For sending email notifications
+- AWS EventBridge - For scheduling lambda function invocations
+- AWS Lambda  -  For crawling the website and publishing messages to an SNS topic
+- AWS SNS  -  For sending email notifications
 
 ## Used technologies
 
@@ -21,7 +21,7 @@ A simple application built on AWS with Serverless, which crawls a website for of
 
 ## Deployment
 
-First create `.env` file with an `EMAIL` variable, where the notifications should be sent.
+Create a `.env` file with an `EMAIL` variable, where the notifications should be sent.
 
 ```sh
 # Install dependencies
